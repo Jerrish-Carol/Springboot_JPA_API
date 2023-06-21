@@ -62,19 +62,19 @@ public class Employee {
 		@NotEmpty
 		private String gender;
 		
-		@NotNull
+		
 		@Value("${employee.isActive}")
-		private String isActive;
+		private Boolean isActive;
 		
-		@NotNull
+		
 		@Value("${employee.isAccountLocked}")
-		private String isAccountLocked;
+		private Boolean isAccountLocked;
 		
-		@NotNull
+		@NotEmpty
 		@Email(message ="email address is not valid")
 		private String email;
 		
-		@NotNull
+		@NotEmpty
 		private String department;
 		
 		

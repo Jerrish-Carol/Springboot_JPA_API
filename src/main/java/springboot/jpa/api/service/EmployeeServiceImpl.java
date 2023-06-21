@@ -31,11 +31,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee getSingleEmployee(Long ID) {
 		Optional<Employee> employee = eRepository.findById(ID); // get employee details using this...optional is used
-																// since content might be present in DB or not
+									// since content might be present in DB or not
+		
+		List<String> exception = new ArrayList<>();
+		exception.add("BAD REQUEST");
+		
 		if (employee.isPresent()) {
 			return employee.get();
 		} else {
-			throw new DetailsNotFoundException("No Employee of the ID " + ID);
+			throw new DetailsNotFoundException( "No Employee of the ID provided ", "0", exception);
 		}
 
 	}

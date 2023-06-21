@@ -4,7 +4,7 @@ import java.util.List;
 
 import springboot.jpa.api.model.Employee;
 
-public interface EmployeeService {
+public interface EmployeeService {  
 	
 	List<Employee> getEmployees(); // returns all the employee details
 	

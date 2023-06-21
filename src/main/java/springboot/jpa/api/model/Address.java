@@ -20,6 +20,8 @@ public class Address {
 
 	private long DoorNo;
 	
+	private String Street;
+	
 	private String State;
 	
 	private String City;
@@ -28,13 +30,16 @@ public class Address {
 	@JoinColumn(name="ID")  // join column with primary key in employee
 	private Employee employee;
 	
-	public Address(long employee_ID, long doorNo, String state, String city, Employee employee) {
+	public Address(long employee_ID, long doorNo, String street, String state, String city, Employee employee) {
 		super();
 		Employee_ID = employee_ID;
 		DoorNo = doorNo;
+		Street = street;
 		State = state;
 		City = city;
 		this.employee = employee;
 	}
+	
+	
 
 }

@@ -36,16 +36,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(value = {DetailsNotFoundException.class})
 	public ResponseEntity<Object>handleDetailsNotFoundException
-	(DetailsNotFoundException detailsnotfoundexception){
-		String StatusCode;
+	(DetailsNotFoundException exception){
+		String StatusCode = exception.getHttpStatus();
+		List<String> exceptions = exception.getException();
+		String message = exception.getMessage();
 		
-		CustomResponse customResponse = new CustomResponse(
-   				
-				StatusCode="0",
-				
-				detailsnotfoundexception.getMessage(),
-				
-				detailsnotfoundexception.getCause());
+		CustomResponse customResponse = new CustomResponse(StatusCode,message,exceptions);
 	
 		return new ResponseEntity<>(customResponse,HttpStatus.NOT_FOUND);
 			
@@ -57,17 +53,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(value = {ConstraintViolationException.class})
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		Map<String, String> response = new HashMap<>();
+		
+		List<String> exceptions = new ArrayList<>();
 		exception.getBindingResult().getAllErrors().forEach((error)->{
 			String fieldName= ((FieldError)error).getField();
 			String message = error.getDefaultMessage();
-			response.put(fieldName, message);
-			response.put("StatusCode","0");
-			response.put("Exception","BAD REQUEST");
-			
-		});
+			exceptions.add(fieldName+" "+message);
+			});
+			CustomResponse customResponse = new CustomResponse("0","BAD REQUEST",exceptions);
 		
-		return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(customResponse,HttpStatus.BAD_REQUEST);
 		
 	}
 	
@@ -77,11 +72,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		
 		Map<String, String> response = new HashMap<>();
-		response.put("message", PAGE_NOT_FOUND_LOG_CATEGORY);
+		List<String> exceptions = new ArrayList<>();
 		
-		response.put("exception", exception.getLocalizedMessage());
+		exceptions.add(exception.getLocalizedMessage());
 		
-		response.put("StatusCode","0");
+		CustomResponse customResponse = new CustomResponse("0",PAGE_NOT_FOUND_LOG_CATEGORY,exceptions);
 		
 		return new ResponseEntity<>(response ,HttpStatus.BAD_REQUEST);
 	}
