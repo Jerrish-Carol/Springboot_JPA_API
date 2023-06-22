@@ -26,7 +26,10 @@ import jakarta.validation.Valid;
 import springboot.jpa.api.exception.CustomExceptionHandler;
 import springboot.jpa.api.exception.DetailsNotFoundException;
 import springboot.jpa.api.model.Employee;
+import springboot.jpa.api.repository.EmployeeRepository;
+import springboot.jpa.api.response.CustomSuccessResponse;
 import springboot.jpa.api.service.EmployeeService;
+import springboot.jpa.api.service.EmployeeServiceImpl;
 
 @RestController // @Controller + @ResponseBody
 				// @Controller
@@ -38,6 +41,9 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService eService;
+	
+	@Autowired
+	private EmployeeRepository eRepository;
 
 	/*
 	 * @Value("${app.name}") private String appName;
@@ -71,21 +77,22 @@ public class EmployeeController {
 
 	// After ResponseEntity: just adding stuff...no deletion and all ->
 
-	public ResponseEntity<List<Employee>> getEmployees() { // handler method
-		return new ResponseEntity<List<Employee>>(eService.getEmployees(), HttpStatus.OK); // if it success OK -200
+	public ResponseEntity<CustomSuccessResponse> getEmployees() { // handler method
+		return new ResponseEntity<CustomSuccessResponse>(eService.getEmployees(), HttpStatus.OK); // if it success OK -200
 	}
 
 //localhost:8080/employees/<id>
 	@GetMapping("/employees/{ID}")
-
-	public ResponseEntity<Employee> getEmployee(@PathVariable /* ("id") */ Long ID) { // pathvariable is the variable
+	public ResponseEntity<CustomSuccessResponse> getEmployee(@PathVariable /* ("id") */ Long ID) { // pathvariable is the variable
 																						// that is given in URL
 		if (eService.getSingleEmployee(ID) != null) { // Long - datatype id - variable // if /employees/{id} - id is the
 														// same as in @PathVariable("id") then change it to -> public
 														// String getEmployee(@PathVariable Long id)
-			return new ResponseEntity<>(eService.getSingleEmployee(ID), HttpStatus.OK);
+		
+			return new ResponseEntity<CustomSuccessResponse>(eService.getSingleEmployee(ID),HttpStatus.ACCEPTED);
+			
 		} else {
-			return new ResponseEntity<>(eService.getSingleEmployee(ID), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<CustomSuccessResponse>(eService.getSingleEmployee(ID), HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -108,38 +115,34 @@ public class EmployeeController {
 
 	@PostMapping("/employees")
 
-	public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody Employee employee) { // @RequestBody works with
-																							// get,put,post so for
-		return new ResponseEntity<>(eService.saveEmployee(employee), HttpStatus.CREATED);
+	public ResponseEntity<CustomSuccessResponse> saveEmployee(@Valid @RequestBody Employee employee) { // @RequestBody works with
+																							           // get,put,post so for
+		return new ResponseEntity<CustomSuccessResponse>(eService.saveEmployee(employee), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/employees/{ID}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable Long ID, @Valid @RequestBody Employee employee) { // @RequestBody
-																													// works
-																													// with
-																													// get,put,post
-																													// so
-																													// for
-
-		if (!eService.getSingleEmployee(ID).getIsAccountLocked()) {
-			return new ResponseEntity<Employee>(eService.saveEmployee(employee), HttpStatus.OK);
+	public ResponseEntity<CustomSuccessResponse> updateEmployee(@PathVariable Long ID, @Valid @RequestBody Employee employee) { // @RequestBody works with get,put,post for
+		 
+		if (eRepository.existsById(ID)) {
+			
+			return new ResponseEntity<CustomSuccessResponse>(eService.saveEmployee(employee), HttpStatus.OK);
 
 		} else {
-			return new ResponseEntity<Employee>(eService.saveEmployee(employee), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<CustomSuccessResponse>(eService.saveEmployee(employee), HttpStatus.NO_CONTENT);
 		}
 
 	}
 
 	@GetMapping("/employees/filterByName")
-	public ResponseEntity<List<Employee>> getEmployeesByName(@RequestParam String name) {
-		return new ResponseEntity<List<Employee>>(eService.getEmployeeByName(name), HttpStatus.OK);
+	public ResponseEntity<CustomSuccessResponse> getEmployeesByName(@RequestParam String name) {
+		return new ResponseEntity<CustomSuccessResponse>(eService.getEmployeeByName(name), HttpStatus.OK);
 
 	}
 
 	@GetMapping("/employees/filterByKeyword")
-	public ResponseEntity<List<Employee>> getEmployeesByKeyword(@RequestParam String name) {
+	public ResponseEntity<CustomSuccessResponse> getEmployeesByKeyword(@RequestParam String name) {
 
-		return new ResponseEntity<List<Employee>>(eService.getEmployeeByKeyword(name), HttpStatus.OK);
+		return new ResponseEntity<CustomSuccessResponse>(eService.getEmployeeByKeyword(name), HttpStatus.OK);
 
 	}
 

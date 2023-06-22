@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.validation.ConstraintViolationException;
 import springboot.jpa.api.repository.EmployeeRepository;
+import springboot.jpa.api.response.CustomSuccessResponse;
 import springboot.jpa.api.exception.DetailsNotFoundException;
 import springboot.jpa.api.model.Employee;
 
@@ -21,25 +22,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository eRepository;
 
 	@Override
-	public List<Employee> getEmployees() {
-		return eRepository.findAll(); // you can find functions in eRepository by adding a dot after eRepository
-	} // findAll() - gets all the employee details
-
+	public CustomSuccessResponse getEmployees() {
 	
-	
+		return new CustomSuccessResponse(1, "SUCCESS" ,eRepository.findAll()); // you can find functions in eRepository by adding a dot after eRepository
+	} 																							// findAll() - gets all the employee details
 
 	@Override
-	public Employee getSingleEmployee(Long ID) {
-		Optional<Employee> employee = eRepository.findById(ID); // get employee details using this...optional is used
-									// since content might be present in DB or not
+	public CustomSuccessResponse getSingleEmployee(Long ID) {
 		
 		List<String> exception = new ArrayList<>();
 		exception.add("BAD REQUEST");
 		
-		if (employee.isPresent()) {
-			return employee.get();
+		if (eRepository.findById(ID).isPresent()) {
+			
+			return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.findById(ID).get()); // get employee details using this...optional is used																						// since content might be present in DB or not
+			
+			
 		} else {
-			throw new DetailsNotFoundException( "No Employee of the ID provided ", "0", exception);
+			throw new DetailsNotFoundException( 0,"No Employee of the ID provided ", exception);
 		}
 
 	}
@@ -51,14 +51,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee updateEmployee(Employee employee) {
+	public CustomSuccessResponse updateEmployee(Employee employee) {
 
-		return eRepository.save(employee);
+		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.save(employee));
 	}
 
 	@Override
-	public List<Employee> getEmployeeByName(String name) {
-		return eRepository.findByName(name);
+	public CustomSuccessResponse getEmployeeByName(String name) {
+		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.findByName(name));
 	}
 
 	/*
@@ -68,16 +68,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 
 	@Override
-	public List<Employee> getEmployeeByKeyword(String name) {
+	public CustomSuccessResponse getEmployeeByKeyword(String name) {
 
-		return eRepository.findByNameContaining(name);
+		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.findByNameContaining(name));
 	}
 
 
 	@Override
-	public Employee saveEmployee(Employee employee) {
+	public CustomSuccessResponse saveEmployee(Employee employee) {
 		
-			return eRepository.save(employee);
+		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.save(employee));
+		
 		
 	}
 

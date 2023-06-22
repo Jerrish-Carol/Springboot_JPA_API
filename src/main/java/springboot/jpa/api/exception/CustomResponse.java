@@ -3,6 +3,7 @@ package springboot.jpa.api.exception;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomResponse {
 
-	private String StatusCode;
+	private long StatusCode;
 
 	private String message;
 	
@@ -19,12 +20,12 @@ public class CustomResponse {
 
 	
 	
-	public CustomResponse(String StatusCode, String message, List<String> exception ) {
+	public CustomResponse(long StatusCode, String message, List<String> exception ) {
 		super();
 		this.StatusCode = StatusCode;
 		this.message = message;
 		this.exception = exception;
 	}
-
-
+	
+	
 }

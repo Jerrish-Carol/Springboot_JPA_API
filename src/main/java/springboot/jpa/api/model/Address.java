@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class Address {
 	
 	@Id
-	private long Employee_ID;
+	private long Address_ID;
 
 	private long DoorNo;
 	
@@ -26,18 +26,15 @@ public class Address {
 	
 	private String City;
 	
-	@ManyToOne // since many address to one employee
-	@JoinColumn(name="ID")  // join column with primary key in employee
-	private Employee employee;
 	
-	public Address(long employee_ID, long doorNo, String street, String state, String city, Employee employee) {
+	public Address(long Address_ID, long doorNo, String street, String state, String city) {
 		super();
-		Employee_ID = employee_ID;
+		Address_ID = Address_ID;
 		DoorNo = doorNo;
 		Street = street;
 		State = state;
 		City = city;
-		this.employee = employee;
+		
 	}
 	
 	

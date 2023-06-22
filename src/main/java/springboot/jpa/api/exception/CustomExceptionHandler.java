@@ -37,7 +37,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(value = {DetailsNotFoundException.class})
 	public ResponseEntity<Object>handleDetailsNotFoundException
 	(DetailsNotFoundException exception){
-		String StatusCode = exception.getHttpStatus();
+		long StatusCode = exception.getHttpStatus();
 		List<String> exceptions = exception.getException();
 		String message = exception.getMessage();
 		
@@ -60,7 +60,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 			String message = error.getDefaultMessage();
 			exceptions.add(fieldName+" "+message);
 			});
-			CustomResponse customResponse = new CustomResponse("0","BAD REQUEST",exceptions);
+			CustomResponse customResponse = new CustomResponse(0,"BAD REQUEST",exceptions);
 		
 		return new ResponseEntity<>(customResponse,HttpStatus.BAD_REQUEST);
 		
@@ -76,7 +76,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		exceptions.add(exception.getLocalizedMessage());
 		
-		CustomResponse customResponse = new CustomResponse("0",PAGE_NOT_FOUND_LOG_CATEGORY,exceptions);
+		CustomResponse customResponse = new CustomResponse(0,PAGE_NOT_FOUND_LOG_CATEGORY,exceptions);
 		
 		return new ResponseEntity<>(response ,HttpStatus.BAD_REQUEST);
 	}

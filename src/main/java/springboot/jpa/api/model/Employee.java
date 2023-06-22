@@ -88,11 +88,13 @@ public class Employee {
 		private String updateAt; 
 		public String getCreatedAt() {
 			return createdAt;
-		}
+		}  
 		
 		
-	    @OneToMany(mappedBy="employee",cascade=CascadeType.ALL) // employee object in address
-		private List<Address> addressList = new ArrayList<>();
+	    @OneToMany(cascade=CascadeType.ALL)
+	    @JoinColumn(name = "fk_emp_id", referencedColumnName = "ID")
+	    // employee object in address
+		private List<Address> addressList ;
 	
 
 
