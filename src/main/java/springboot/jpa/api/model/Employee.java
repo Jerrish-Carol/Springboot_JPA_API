@@ -57,7 +57,7 @@ public class Employee {
 	
 		@NotNull
 		@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-		private LocalDate DOB;
+		private LocalDate dob;
 		
 		@NotEmpty
 		private String gender;
@@ -78,7 +78,7 @@ public class Employee {
 		private String department;
 		
 		
-		@CreationTimestamp
+		/*@CreationTimestamp
 		@Column(name = "Created_At" , nullable= false , updatable= false)
 		private String createdAt;
 		
@@ -88,7 +88,7 @@ public class Employee {
 		private String updateAt; 
 		public String getCreatedAt() {
 			return createdAt;
-		}  
+		}  */
 		
 		
 	    @OneToMany(cascade=CascadeType.ALL)

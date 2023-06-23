@@ -1,16 +1,14 @@
 package springboot.jpa.api.service;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.ConstraintViolationException;
 import springboot.jpa.api.repository.EmployeeRepository;
+import springboot.jpa.api.response.CustomGetAllResponse;
+import springboot.jpa.api.response.CustomGetResponse;
+import springboot.jpa.api.response.CustomPostResponse;
 import springboot.jpa.api.response.CustomSuccessResponse;
 import springboot.jpa.api.exception.DetailsNotFoundException;
 import springboot.jpa.api.model.Employee;
@@ -22,24 +20,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository eRepository;
 
 	@Override
-	public CustomSuccessResponse getEmployees() {
+	public CustomGetAllResponse getEmployees() {
 	
-		return new CustomSuccessResponse(1, "SUCCESS" ,eRepository.findAll()); // you can find functions in eRepository by adding a dot after eRepository
+		return new CustomGetAllResponse(eRepository.findAll()); // you can find functions in eRepository by adding a dot after eRepository
 	} 																							// findAll() - gets all the employee details
 
 	@Override
-	public CustomSuccessResponse getSingleEmployee(Long ID) {
+	public CustomGetResponse getSingleEmployee(Long ID) {
 		
 		List<String> exception = new ArrayList<>();
 		exception.add("BAD REQUEST");
 		
 		if (eRepository.findById(ID).isPresent()) {
 			
-			return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.findById(ID).get()); // get employee details using this...optional is used																						// since content might be present in DB or not
+			return new CustomGetResponse( eRepository.findById(ID).get()); // get employee details using this...optional is used																						// since content might be present in DB or not
 			
 			
 		} else {
-			throw new DetailsNotFoundException( 0,"No Employee of the ID provided ", exception);
+			throw new DetailsNotFoundException( 0,"NO DETAILS PROVIDED ", exception);
 		}
 
 	}
@@ -51,14 +49,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public CustomSuccessResponse updateEmployee(Employee employee) {
+	public CustomPostResponse updateEmployee(Employee employee) {
 
-		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.save(employee));
+		return new CustomPostResponse(1,"UPDATED",eRepository.save(employee));
 	}
 
-	@Override
+	/*@Override
 	public CustomSuccessResponse getEmployeeByName(String name) {
-		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.findByName(name));
+		return new CustomSuccessResponse(1,"",eRepository.findByName(name));
 	}
 
 	/*
@@ -66,24 +64,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * String location) { return eRepository.findByNameAndLocation(name, location);
 	 * }
 	 */
-
+/*
 	@Override
 	public CustomSuccessResponse getEmployeeByKeyword(String name) {
 
-		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.findByNameContaining(name));
+		return new CustomSuccessResponse(1,"",eRepository.findByNameContaining(name));
 	}
+	*/
 
 
 	@Override
-	public CustomSuccessResponse saveEmployee(Employee employee) {
+	public CustomPostResponse saveEmployee(Employee employee) {
 		
-		return new CustomSuccessResponse(1, "Employee with ID" ,eRepository.save(employee));
+		return new CustomPostResponse(1,"SAVED",eRepository.save(employee));
 		
 		
 	}
 
-
-
+	
 	
 
 }

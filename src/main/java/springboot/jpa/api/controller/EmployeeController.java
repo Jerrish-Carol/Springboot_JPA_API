@@ -27,6 +27,9 @@ import springboot.jpa.api.exception.CustomExceptionHandler;
 import springboot.jpa.api.exception.DetailsNotFoundException;
 import springboot.jpa.api.model.Employee;
 import springboot.jpa.api.repository.EmployeeRepository;
+import springboot.jpa.api.response.CustomGetAllResponse;
+import springboot.jpa.api.response.CustomGetResponse;
+import springboot.jpa.api.response.CustomPostResponse;
 import springboot.jpa.api.response.CustomSuccessResponse;
 import springboot.jpa.api.service.EmployeeService;
 import springboot.jpa.api.service.EmployeeServiceImpl;
@@ -77,22 +80,22 @@ public class EmployeeController {
 
 	// After ResponseEntity: just adding stuff...no deletion and all ->
 
-	public ResponseEntity<CustomSuccessResponse> getEmployees() { // handler method
-		return new ResponseEntity<CustomSuccessResponse>(eService.getEmployees(), HttpStatus.OK); // if it success OK -200
+	public ResponseEntity<CustomGetAllResponse> getEmployees() { // handler method
+		return new ResponseEntity<CustomGetAllResponse>(eService.getEmployees(), HttpStatus.OK); // if it success OK -200
 	}
 
 //localhost:8080/employees/<id>
 	@GetMapping("/employees/{ID}")
-	public ResponseEntity<CustomSuccessResponse> getEmployee(@PathVariable /* ("id") */ Long ID) { // pathvariable is the variable
+	public ResponseEntity<CustomGetResponse> getEmployee(@PathVariable /* ("id") */ Long ID) { // pathvariable is the variable
 																						// that is given in URL
 		if (eService.getSingleEmployee(ID) != null) { // Long - datatype id - variable // if /employees/{id} - id is the
 														// same as in @PathVariable("id") then change it to -> public
 														// String getEmployee(@PathVariable Long id)
 		
-			return new ResponseEntity<CustomSuccessResponse>(eService.getSingleEmployee(ID),HttpStatus.ACCEPTED);
+			return new ResponseEntity<CustomGetResponse>(eService.getSingleEmployee(ID),HttpStatus.ACCEPTED);
 			
 		} else {
-			return new ResponseEntity<CustomSuccessResponse>(eService.getSingleEmployee(ID), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<CustomGetResponse>(eService.getSingleEmployee(ID), HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -115,25 +118,25 @@ public class EmployeeController {
 
 	@PostMapping("/employees")
 
-	public ResponseEntity<CustomSuccessResponse> saveEmployee(@Valid @RequestBody Employee employee) { // @RequestBody works with
+	public ResponseEntity<CustomPostResponse> saveEmployee(@Valid @RequestBody Employee employee) { // @RequestBody works with
 																							           // get,put,post so for
-		return new ResponseEntity<CustomSuccessResponse>(eService.saveEmployee(employee), HttpStatus.CREATED);
+		return new ResponseEntity<CustomPostResponse>(eService.saveEmployee(employee), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/employees/{ID}")
-	public ResponseEntity<CustomSuccessResponse> updateEmployee(@PathVariable Long ID, @Valid @RequestBody Employee employee) { // @RequestBody works with get,put,post for
+	public ResponseEntity<CustomPostResponse> updateEmployee(@PathVariable Long ID, @Valid @RequestBody Employee employee) { // @RequestBody works with get,put,post for
 		 
 		if (eRepository.existsById(ID)) {
 			
-			return new ResponseEntity<CustomSuccessResponse>(eService.saveEmployee(employee), HttpStatus.OK);
+			return new ResponseEntity<CustomPostResponse>(eService.saveEmployee(employee), HttpStatus.OK);
 
 		} else {
-			return new ResponseEntity<CustomSuccessResponse>(eService.saveEmployee(employee), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<CustomPostResponse>(eService.saveEmployee(employee), HttpStatus.NO_CONTENT);
 		}
 
 	}
 
-	@GetMapping("/employees/filterByName")
+	/*@GetMapping("/employees/filterByName")
 	public ResponseEntity<CustomSuccessResponse> getEmployeesByName(@RequestParam String name) {
 		return new ResponseEntity<CustomSuccessResponse>(eService.getEmployeeByName(name), HttpStatus.OK);
 
@@ -144,6 +147,6 @@ public class EmployeeController {
 
 		return new ResponseEntity<CustomSuccessResponse>(eService.getEmployeeByKeyword(name), HttpStatus.OK);
 
-	}
+	}*/
 
 }

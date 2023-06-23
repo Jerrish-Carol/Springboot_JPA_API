@@ -11,23 +11,24 @@ public class CustomSuccessResponse {
 
 	//public static final String HttpStatus = null;
 
-	private long StatusCode;
-
-	private String message;
 	
 	private List<Employee> content;
 	
 	private Employee employee;
 	
+	private long StatusCode;
+
+	private String message;
 	
-	public CustomSuccessResponse(long StatusCode, String message, List<Employee> content ) {
+	
+	/*public CustomSuccessResponse(long StatusCode, String message, List<Employee> content ) {
 		super();
 		this.StatusCode = StatusCode;
 		this.message = message;
 		this.content = content;
 	}
 
-
+*/
 
 	public CustomSuccessResponse(long StatusCode, String message, Employee employee) {
 		super();
@@ -35,6 +36,14 @@ public class CustomSuccessResponse {
 		this.message = message;
 		this.employee = employee;
 	}
+
+
+
+	
+
+
+
+	
 
 
 
