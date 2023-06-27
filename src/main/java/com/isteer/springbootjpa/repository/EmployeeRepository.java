@@ -1,11 +1,11 @@
-package springboot.jpa.api.repository;
+package com.isteer.springbootjpa.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import springboot.jpa.api.model.Employee;
+import com.isteer.springbootjpa.model.Employee;
 
 //JPA repository holds functions to create,read,update and delete
 @Repository

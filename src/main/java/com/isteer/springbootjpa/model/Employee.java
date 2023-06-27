@@ -1,4 +1,4 @@
-package springboot.jpa.api.model;
+package com.isteer.springbootjpa.model;
 
 
 import java.time.LocalDate;

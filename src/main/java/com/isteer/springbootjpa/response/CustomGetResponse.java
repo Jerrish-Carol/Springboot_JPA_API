@@ -1,7 +1,7 @@
-package springboot.jpa.api.response;
+package com.isteer.springbootjpa.response;
 
 import lombok.Data;
-import springboot.jpa.api.model.Employee;
+import com.isteer.springbootjpa.model.Employee;
 
 @Data
 public class CustomGetResponse {

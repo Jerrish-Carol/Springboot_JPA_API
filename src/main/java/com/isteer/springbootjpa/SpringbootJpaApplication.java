@@ -1,4 +1,4 @@
-package springboot.jpa.api;
+package com.isteer.springbootjpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

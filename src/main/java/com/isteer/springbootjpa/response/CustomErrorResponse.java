@@ -1,4 +1,4 @@
-package springboot.jpa.api.exception;
+package com.isteer.springbootjpa.response;
 
 import java.util.List;
 
@@ -10,22 +10,19 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class CustomResponse {
+public class CustomErrorResponse {
 
 	private long StatusCode;
 
 	private String message;
-	
+
 	private List<String> exception;
 
-	
-	
-	public CustomResponse(long StatusCode, String message, List<String> exception ) {
+	public CustomErrorResponse(long StatusCode, String message, List<String> exception) {
 		super();
 		this.StatusCode = StatusCode;
 		this.message = message;
 		this.exception = exception;
 	}
-	
-	
+
 }

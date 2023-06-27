@@ -8,10 +8,10 @@
 		<version>3.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>Springboot-JPA</groupId>
-	<artifactId>Springboot.JPA</artifactId>
+	<groupId>com.isteer</groupId>
+	<artifactId>springbootjpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot_jpa</name>
+	<name>springbootjpa</name>
 	<description>Spring boot with RESTful Webservices</description>
 	<properties>
 		<java.version>17</java.version>
