@@ -24,11 +24,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(value = { DetailsNotFoundException.class })
 	public ResponseEntity<Object> handleDetailsNotFoundException(DetailsNotFoundException exception) {
-		long StatusCode = exception.getHttpStatus();
+		long statusCode = exception.getHttpStatus();
 		List<String> exceptions = exception.getException();
 		String message = exception.getMessage();
 
-		CustomErrorResponse customResponse = new CustomErrorResponse(StatusCode, message, exceptions);
+		CustomErrorResponse customResponse = new CustomErrorResponse(statusCode, message, exceptions);
 
 		return new ResponseEntity<>(customResponse, HttpStatus.NOT_FOUND);
 
@@ -40,7 +40,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
 		List<String> exceptions = new ArrayList<>();
-		exception.getBindingResult().getAllErrors().forEach((error) -> {
+		exception.getBindingResult().getAllErrors().forEach(error -> {
 			String fieldName = ((FieldError) error).getField();
 			String message = error.getDefaultMessage();
 			exceptions.add(fieldName + " " + message);

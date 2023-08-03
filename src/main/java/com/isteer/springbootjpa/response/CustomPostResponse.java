@@ -8,13 +8,13 @@ public class CustomPostResponse {
 
 	private Employee employee;
 
-	private long StatusCode;
+	private long statusCode;
 
 	private String message;
 
-	public CustomPostResponse(long StatusCode, String message, Employee employee) {
+	public CustomPostResponse(long statusCode, String message, Employee employee) {
 		super();
-		this.StatusCode = StatusCode;
+		this.statusCode = statusCode;
 		this.message = message;
 		this.employee = employee;
 	}

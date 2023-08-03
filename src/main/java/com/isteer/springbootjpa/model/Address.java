@@ -1,5 +1,6 @@
 package com.isteer.springbootjpa.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,23 +17,24 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long Address_ID;
+	@Column(name="address_id")
+	private long addressId;
 
-	private long DoorNo;
+	private long doorNo;
 
-	private String Street;
+	private String street;
 
-	private String State;
+	private String state;
 
-	private String City;
+	private String city;
 
-	public Address(long Address_ID, long doorNo, String street, String state, String city) {
+	public Address(long addressId, long doorNo, String street, String state, String city) {
 		super();
-		this.Address_ID = Address_ID;
-		DoorNo = doorNo;
-		Street = street;
-		State = state;
-		City = city;
+		this.addressId = addressId;
+		this.doorNo = doorNo;
+		this.street = street;
+		this.state = state;
+		this.city = city;
 
 	}
 

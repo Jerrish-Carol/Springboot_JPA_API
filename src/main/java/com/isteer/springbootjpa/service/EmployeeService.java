@@ -11,9 +11,9 @@ public interface EmployeeService {
 	
 	CustomPostResponse saveEmployee(Employee employee); 
 	
-	CustomGetResponse getSingleEmployee(Long ID); 
+	CustomGetResponse getSingleEmployee(Long id); 
 	
-	void deleteEmployee(Long ID); 
+	void deleteEmployee(Long id); 
 	
 	CustomPostResponse updateEmployee(Employee employee); 
 	

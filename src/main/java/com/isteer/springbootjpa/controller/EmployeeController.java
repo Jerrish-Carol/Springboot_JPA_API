@@ -31,52 +31,50 @@ public class EmployeeController {
 	@GetMapping("/employees")
 
 	public ResponseEntity<CustomGetAllResponse> getEmployees() {
-		return new ResponseEntity<CustomGetAllResponse>(eService.getEmployees(), HttpStatus.OK);
+		return new ResponseEntity<>(eService.getEmployees(), HttpStatus.OK);
 	}
 
-	@GetMapping("/employees/{ID}")
-	public ResponseEntity<CustomGetResponse> getEmployee(@PathVariable Long ID) {
+	@GetMapping("/employees/{id}")
+	public ResponseEntity<CustomGetResponse> getEmployee(@PathVariable Long id) {
 
-		if (eService.getSingleEmployee(ID) != null) {
-			return new ResponseEntity<CustomGetResponse>(eService.getSingleEmployee(ID), HttpStatus.ACCEPTED);
+		if (eService.getSingleEmployee(id) != null) {
+			return new ResponseEntity<>(eService.getSingleEmployee(id), HttpStatus.ACCEPTED);
 
 		} else {
-			return new ResponseEntity<CustomGetResponse>(eService.getSingleEmployee(ID), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(eService.getSingleEmployee(id), HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@DeleteMapping("/employees")
 
-	public ResponseEntity<HttpStatus> deleteEmployee(@RequestParam Long ID) {
-		if (eService.getSingleEmployee(ID) != null) {
-			eService.deleteEmployee(ID);
-			return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<HttpStatus> deleteEmployee(@RequestParam Long id) {
+		if (eService.getSingleEmployee(id) != null) {
+			eService.deleteEmployee(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} else {
-			return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 	}
 
 	@PostMapping("/employees")
 
-	public ResponseEntity<CustomPostResponse> saveEmployee(@Valid @RequestBody Employee employee) { // @RequestBody
-																									// works with
-																									// get,put,post so
-																									// for
-		return new ResponseEntity<CustomPostResponse>(eService.saveEmployee(employee), HttpStatus.CREATED);
+	public ResponseEntity<CustomPostResponse> saveEmployee(@Valid @RequestBody Employee employee) { // @RequestBody works with get,put,post so
+																									
+		return new ResponseEntity<>(eService.saveEmployee(employee), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/employees/{ID}")
-	public ResponseEntity<CustomPostResponse> updateEmployee(@PathVariable Long ID,
+	@PutMapping("/employees/{id}")
+	public ResponseEntity<CustomPostResponse> updateEmployee(@PathVariable Long id,
 			@Valid @RequestBody Employee employee) {
-		if (eRepository.existsById(ID)) {
+		if (eRepository.existsById(id)) {
 
-			return new ResponseEntity<CustomPostResponse>(eService.saveEmployee(employee), HttpStatus.OK);
+			return new ResponseEntity<>(eService.saveEmployee(employee), HttpStatus.OK);
 		}
 
 		else {
 
-			return new ResponseEntity<CustomPostResponse>(eService.saveEmployee(employee), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(eService.saveEmployee(employee), HttpStatus.NO_CONTENT);
 		}
 
 	}

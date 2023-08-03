@@ -24,14 +24,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public CustomGetResponse getSingleEmployee(Long ID) {
+	public CustomGetResponse getSingleEmployee(Long id) {
 
 		List<String> exception = new ArrayList<>();
 		exception.add("BAD REQUEST");
 
-		if (eRepository.findById(ID).isPresent()) {
+		if (eRepository.findById(id).isPresent()) {
 
-			return new CustomGetResponse(eRepository.findById(ID).get());
+			return new CustomGetResponse(eRepository.findById(id).get());
 
 		} else {
 			throw new DetailsNotFoundException(0, "NO DETAILS PROVIDED ", exception);
@@ -40,8 +40,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void deleteEmployee(Long ID) {
-		eRepository.deleteById(ID);
+	public void deleteEmployee(Long id) {
+		eRepository.deleteById(id);
 
 	}
 
