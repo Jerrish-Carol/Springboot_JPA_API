@@ -1,4 +1,4 @@
-package com.isteer.springbootjpa.service;
+package com.isteer.springbootjpa.dao;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ import com.isteer.springbootjpa.exception.DetailsNotFoundException;
 import com.isteer.springbootjpa.model.Employee;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Autowired
 	private EmployeeRepository eRepository;

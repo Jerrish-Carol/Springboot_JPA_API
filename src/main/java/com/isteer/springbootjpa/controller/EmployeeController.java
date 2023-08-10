@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
+
+import com.isteer.springbootjpa.dao.EmployeeDao;
 import com.isteer.springbootjpa.model.Employee;
 import com.isteer.springbootjpa.repository.EmployeeRepository;
 import com.isteer.springbootjpa.response.CustomGetAllResponse;
 import com.isteer.springbootjpa.response.CustomGetResponse;
 import com.isteer.springbootjpa.response.CustomPostResponse;
-import com.isteer.springbootjpa.service.EmployeeService;
 
 @RestController
 public class EmployeeController {
 
 	@Autowired
-	private EmployeeService eService;
+	private EmployeeDao eService;
 
 	@Autowired
 	private EmployeeRepository eRepository;

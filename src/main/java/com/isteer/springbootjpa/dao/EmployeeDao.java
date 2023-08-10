@@ -1,11 +1,11 @@
-package com.isteer.springbootjpa.service;
+package com.isteer.springbootjpa.dao;
 
 import com.isteer.springbootjpa.model.Employee;
 import com.isteer.springbootjpa.response.CustomGetAllResponse;
 import com.isteer.springbootjpa.response.CustomGetResponse;
 import com.isteer.springbootjpa.response.CustomPostResponse;
 
-public interface EmployeeService {  
+public interface EmployeeDao {  
 	
 	CustomGetAllResponse getEmployees(); 
 	
